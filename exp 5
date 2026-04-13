@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Demo - Dogs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Fetch API Demo - Dogs</h1>
+    <p>Fetching Dog Images & Data Dynamically</p>
+    <select id="breedSelect">
+        <option value="">All Breeds</option>
+        <option value="hound">Hound</option>
+        <option value="retriever">Retriever</option>
+        <option value="terrier">Terrier</option>
+        <option value="poodle">Poodle</option>
+    </select>
+</header>
+
+<button id="loadBtn">Load Top Dogs</button>
+
+<div id="output"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
+const loadBtn = document.getElementById("loadBtn");
+const output = document.getElementById("output");
+const breedSelect = document.getElementById("breedSelect");
+
+loadBtn.addEventListener("click", () => {
+    output.innerHTML = "Loading dog data...";
+
+    const selectedBreed = breedSelect.value;
+    const url = selectedBreed 
+        ? `https://dog.ceo/api/breed/${selectedBreed}/images/random/10` 
+        : `https://dog.ceo/api/breeds/image/random/10`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network error");
+            }
+            return response.json();
+        })
+        .then(result => {
+            const imageList = result.message.slice(0, 10); // Task 2: Limit to 10 images
+
+            output.innerHTML = `<div class="container"></div>`;
+            const container = document.querySelector(".container");
+
+            imageList.forEach(imageUrl => {
+                const card = document.createElement("div");
+                card.className = "card";
+
+                const breedName = selectedBreed ? selectedBreed.charAt(0).toUpperCase() + selectedBreed.slice(1) : "Random Breed";
+
+                card.innerHTML = `
+                    <img src="${imageUrl}" alt="Dog">
+                    <h3>${breedName}</h3>
+                    <p><strong>Popularity:</strong> High (placeholder)</p>  <!-- Task 1: Additional details (breed and fact) -->
+                    <p><strong>Description:</strong> A friendly dog breed!</p>
+                `;
+
+                container.appendChild(card);
+            });
+        })
+        .catch(error => {
+            output.innerHTML = "Failed to load dog data.";
+            console.error(error);
+        });
+});
