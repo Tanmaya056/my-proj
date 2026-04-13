@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>About Us</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container" align="">
+    <div class="box">
+        <h2>About Website</h2>
+        <p>This website demonstrates responsive design using media queries.</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Web Programming Lab</p>
+</footer>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Contact Us</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+    <form>
+        <h3 align="center">Contact Form</h3>
+        Name:
+        <input type="text" name="name"/>
+        <br></br>
+        Email:
+        <input type="email" name="email">
+        <br></br>
+        Feedback:
+        <input type="text" name="feedback"/>
+    </form>
+    <div class="box">
+        <h2>Get in Touch</h2>
+        <p>Email: example@email.com</p>
+        <p>Phone: 9876543210</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Web Programming Lab</p>
+</footer>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Responsive Website</h1>
+    <p>Home Page</p>
+</header>
+
+<nav align="center">
+    <a class="nav-link" href="index.html">Home</a> 
+    <a class="nav-link" href="about.html">About</a> 
+    <a class="nav-link" href="services.html">Services</a> 
+    <a class="nav-link" href="contact.html">Contact</a>
+</nav>
+<div class="container">
+    <div class="box">
+        <h2>HTML</h2>
+        <p>HTML provides structure to web pages.</p>
+    </div>
+
+    <div class="box">
+        <h2>CSS</h2>
+        <p>CSS is used for styling and layout.</p>
+    </div>
+
+    <div class="box">
+        <h2>Media Queries</h2>
+        <p>They make websites responsive.</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Web Programming Lab</p>
+</footer>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Our Services</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+    <div class="box">
+        <h2>Web Design</h2>
+        <p>Responsive web design services.</p>
+    </div>
+
+    <div class="box">
+        <h2>Development</h2>
+        <p>HTML, CSS, and basic JavaScript development.</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Web Programming Lab</p>
+</footer>
+</body>
+</html>
