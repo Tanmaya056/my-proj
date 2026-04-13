@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>Contact Form</h2>
+
+<form id="contactForm">
+
+    Name:
+    <input type="text" id="name">
+    <span class="error" id="nameError"></span><br><br>
+
+    Email:
+    <input type="email" id="email">
+    <span class="error" id="emailError"></span><br><br>
+
+    Message:
+    <textarea id="message" maxlength="200"></textarea>
+    <span class="error" id="messageError"></span><br>
+    <span id="charCount">0/200</span><br><br>
+
+    <input type="submit" value="Submit" id="submitBtn" disabled>
+</form>
+
+<p class="success" id="successMsg"></p>
+
+<!-- Section to display previous submissions -->
+<div id="previousSubmissions">
+    <h3>Previous Submissions</h3>
+    <ul id="submissionsList"></ul>
+</div>
+
+<!-- External JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
+const form = document.getElementById("contactForm");
+const submitBtn = document.getElementById("submitBtn");
+const textarea = document.getElementById("message");
+const charCount = document.getElementById("charCount");
+const submissionsList = document.getElementById("submissionsList");
+
+// Task 4: Load and display previous submissions from localStorage on page load
+window.addEventListener("load", () => {
+    const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+    submissions.forEach(sub => {
+        displaySubmission(sub);
+    });
+});
+
+// Task 1: Character counter for message field
+textarea.addEventListener("input", () => {
+    charCount.textContent = textarea.value.length + "/200";
+    validateForm(); // Re-validate on input
+});
+
+// Task 2 & 3: Function to validate form, enable/disable submit button, and highlight fields
+function validateForm() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    let isFormValid = true;
+
+    // Name validation
+    if (name === "") {
+        document.getElementById("name").classList.add("invalid");
+        document.getElementById("name").classList.remove("valid");
+        isFormValid = false;
+    } else {
+        document.getElementById("name").classList.add("valid");
+        document.getElementById("name").classList.remove("invalid");
+    }
+
+    // Email validation
+    if (email === "" || !email.includes("@")) {
+        document.getElementById("email").classList.add("invalid");
+        document.getElementById("email").classList.remove("valid");
+        isFormValid = false;
+    } else {
+        document.getElementById("email").classList.add("valid");
+        document.getElementById("email").classList.remove("invalid");
+    }
+
+    // Message validation
+    if (message === "" || message.length > 200) {
+        document.getElementById("message").classList.add("invalid");
+        document.getElementById("message").classList.remove("valid");
+        isFormValid = false;
+    } else {
+        document.getElementById("message").classList.add("valid");
+        document.getElementById("message").classList.remove("invalid");
+    }
+
+    submitBtn.disabled = true;
+    if (isFormValid) {
+        submitBtn.disabled = false;
+    }
+
+    return isFormValid;
+}
+
+// Add input listeners for real-time validation (Task 2)
+document.getElementById("name").addEventListener("input", validateForm);
+document.getElementById("email").addEventListener("input", validateForm);
+
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("messageError").textContent = "";
+    document.getElementById("successMsg").textContent = "";
+
+    let isValid = true;
+
+    if (name === "") {
+        document.getElementById("nameError").textContent = "Name is required";
+        isValid = false;
+    }
+
+    if (email === "") {
+        document.getElementById("emailError").textContent = "Email is required";
+        isValid = false;
+    } else if (!email.includes("@")) {
+        document.getElementById("emailError").textContent = "Invalid email format";
+        isValid = false;
+    }
+
+    if (message === "") {
+        document.getElementById("messageError").textContent = "Message cannot be empty";
+        isValid = false;
+    }
+
+    if (isValid) {
+        // Task 4: Store in localStorage (using your snippet for name, plus full data)
+        localStorage.setItem("username", name);  // As per your request
+        const submission = { name, email, message, timestamp: new Date().toISOString() };
+        const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+        submissions.push(submission);
+        localStorage.setItem("submissions", JSON.stringify(submissions));
+
+        // Display the new submission
+        displaySubmission(submission);
+
+        // Show success and reset form
+        document.getElementById("successMsg").textContent = "Form submitted successfully!";
+        form.reset();
+        charCount.textContent = "0/200";
+        validateForm(); // Re-validate after reset
+    }
+});
+
+// Task 4: Helper function to display a submission
+function displaySubmission(sub) {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>Name:</strong> ${sub.name}<br><strong>Email:</strong> ${sub.email}<br><strong>Message:</strong> ${sub.message}<br><small>Submitted: ${new Date(sub.timestamp).toLocaleString()}</small>`;
+    submissionsList.appendChild(li);
+}
